@@ -1,0 +1,26 @@
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node files (if using)
+node_modules/
+.npm
+
+# Python files (if using)
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
