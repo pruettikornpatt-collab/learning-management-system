@@ -1,5 +1,5 @@
 # Daily Learning Log - [DATE]
-**[DAY OF WEEK]**
+**[DAY OF WEEK]** | [แผนก] | [คลัง]
 
 ---
 
@@ -62,7 +62,11 @@
 ---
 
 ## Tags
-`#tag1` `#tag2` `#tag3` `#j-t-express`
+ใส่เฉพาะสิ่งที่เรียนจริงในวันนั้น — ห้ามใส่กว้างๆ เช่น #operations #logistics
+ตัวอย่างที่ดี: ระบบที่เจอ (#DWS #PDA #JMS), แผนกที่ไปดู (#QC #inbound #outbound), concept (#SLA #reverse-conveyor)
+ถ้าไม่แน่ใจว่าควรใส่ tag อะไร → ถามก่อน อย่าเดาเอง
+
+`#[ระบบที่เรียน]` `#[แผนกที่ไปดู]` `#[concept-สำคัญ]`
 
 ---
 
