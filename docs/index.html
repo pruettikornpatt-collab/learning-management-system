@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J&T Express — Gateway Operations Summary</title>
+<style>
+  :root{
+    --red:#d71920; --dark:#1a1a1a; --grey:#555; --light:#f7f7f8; --border:#e5e5e8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI","PingFang SC","Microsoft YaHei","Noto Sans",Helvetica,Arial,sans-serif; color:var(--dark); background:var(--light); line-height:1.75;}
+  .wrap{max-width:860px; margin:0 auto; padding:48px 28px 80px;}
+  header{border-bottom:4px solid var(--red); padding-bottom:20px; margin-bottom:28px;}
+  header h1{font-size:1.7rem; letter-spacing:.2px;}
+  header p{color:var(--grey); margin-top:6px; font-size:.95rem;}
+  .lang-switch{display:flex; gap:8px; margin:22px 0 34px;}
+  .lang-switch button{
+    padding:9px 26px; border:1px solid var(--border); background:#fff; border-radius:24px;
+    font-size:.95rem; cursor:pointer; transition:.15s;
+  }
+  .lang-switch button.active{background:var(--red); color:#fff; border-color:var(--red); font-weight:600;}
+  h2{font-size:1.25rem; margin:38px 0 12px; padding-left:12px; border-left:4px solid var(--red);}
+  h3{font-size:1.05rem; margin:24px 0 8px; color:var(--red);}
+  p{margin:10px 0;}
+  .card{background:#fff; border:1px solid var(--border); border-radius:10px; padding:18px 22px; margin:14px 0;}
+  .flow{background:#fff; border:1px solid var(--border); border-left:4px solid var(--red); border-radius:8px; padding:14px 18px; margin:12px 0; font-size:.97rem;}
+  .kpi{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:14px 0;}
+  .kpi div{background:#fff; border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center;}
+  .kpi b{display:block; color:var(--red); font-size:1.05rem;}
+  .kpi span{font-size:.85rem; color:var(--grey);}
+  footer{margin-top:48px; padding-top:16px; border-top:1px solid var(--border); color:var(--grey); font-size:.85rem;}
+  .hidden{display:none;}
+  @media print{.lang-switch{display:none;} body{background:#fff;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>J&T Express — Gateway Operations Summary <span style="color:var(--red)">·</span> 分拨中心运营摘要</h1>
+  <p>SPK Gateway · Daily Learning Logs, 4–11 June 2026 · 基于 2026 年 6 月 4–11 日每日学习记录</p>
+</header>
+
+<div class="lang-switch">
+  <button id="btn-en" class="active" onclick="setLang('en')">English</button>
+  <button id="btn-zh" onclick="setLang('zh')">中文（普通话）</button>
+</div>
+
+<!-- ===================== ENGLISH ===================== -->
+<section id="lang-en">
+
+<h2>What Is a Gateway?</h2>
+<p>A Gateway (GW) is a distribution center that consolidates and sorts parcels from branches and other gateways nationwide. Every parcel must pass through at least one gateway before reaching its destination. The network currently comprises <b>11 gateways and 6 hubs</b>, with SPK (Samut Prakan) serving as the headquarters gateway.</p>
+
+<h2>Core Workflow — Three Stages</h2>
+
+<h3>1. Inbound</h3>
+<div class="flow">Verify the work-assignment sheet (driver name / license plate / three security straps) → register in the queue and release the truck into a loading bay → scan to open the container → load the conveyor onto the truck → every parcel passes through a DWS machine (automated dimension–weight–scanning; <b>22 units operating simultaneously</b>) → automatic sorting by destination zone</div>
+<div class="card">
+<p><b>Checkpoint at the conveyor entrance:</b> parcels whose three dimensions total more than 100 cm, or that weigh more than 50 kg, are classified as <b>oversize</b> and diverted to the Manual Team. VIP brands (Oppo, Vivo, etc.) must not enter the machines. Labels must face up, and parcels must be spaced at least 10 cm apart.</p>
+</div>
+
+<h3>2. Auto Packing (“Sack House”)</h3>
+<p>Sacks arriving from sub-branches are opened, and individual parcels are fed onto the conveyor to be re-sorted by destination province. The sack house consists of <b>four rings</b> (A/B/C/D, equipped with 24/24/24/36 machines respectively) and accepts only parcels weighing ≤ 3 kg with combined dimensions ≤ 90 cm. Parcels whose combined dimensions exceed 180 cm cannot be placed in sacks.</p>
+<div class="card">
+<p><b>Every special case has a defined path:</b> round or rollable items go to the <b>Flip Tray</b> line; items that are too light are collected into a sack and sent to the Manual Team; parcels with unreadable labels circulate on the conveyor via the <b>Reverse</b> function until a staff member reads the label and pushes the parcel into the correct lane — if it still cannot be identified, it is sent to the end-of-line area.</p>
+</div>
+
+<h3>3. Outbound</h3>
+<div class="flow">The main conveyor branches into province-specific lanes, where assigned staff pull parcels into their own lanes → every parcel is scanned via PDA before loading → loading arrangement: heavy items at the bottom; fragile items, VVIP parcels, and fruit at the rear in separate zones → truck departure</div>
+<div class="card">
+<p>This sorting step is performed <b>manually by design</b>: automation was trialed, but the machines could not keep up with the volume, parcels were dropped, and SLA targets were missed. The pre-loading PDA scan also serves as <b>proof that responsibility has been transferred</b> away from the warehouse.</p>
+</div>
+
+<h2>Supporting Systems</h2>
+
+<h3>JMS + PDA</h3>
+<p>Every checkpoint scan creates a timestamp tagged with the responsible branch, so any lost or damaged parcel can be traced immediately to the party accountable.</p>
+
+<h3>Quality Control (QC)</h3>
+<p>Five units — Call Center / CCTV / Data / Packing / Store — oversee five KPIs:</p>
+<div class="kpi">
+  <div><b>≥ 99.2%</b><span>On-time inbound / outbound</span></div>
+  <div><b>&lt; 800 pcs/day</b><span>Mis-sorted parcels</span></div>
+  <div><b>&lt; 0.4%</b><span>Missed scans</span></div>
+  <div><b>&lt; 1%</b><span>Warehouse clearance</span></div>
+  <div><b>Monitored</b><span>Transit delays</span></div>
+</div>
+<p>Damaged parcels follow a repacking process together with a traceback investigation to determine which party is at fault.</p>
+
+<h3>Call Center 1470</h3>
+<p>All calls first reach headquarters → the parcel’s tracking status is checked → the call is transferred to the location where the parcel currently is. If that location’s lines are full, the HQ call center takes the case and forwards it through the back-office system. The Gateway handles only three task types and may contact only the regional level — only 1470/HQ may contact every level. <b>No-label parcels:</b> stored for 14 days; claimable 5 days after being registered as stranded; claims must be filed within 30 days of shipment.</p>
+
+<h2>Management Lessons</h2>
+<div class="card">
+<p>Automation is not the answer at every point — people are deployed where they are more practical, as in Outbound. Every scan is evidence of accountability, not merely a tracking record. A good system gives every edge case a way out, leaving no parcel stranded without an owner. Clearly defined scopes of work are deliberate design choices that make the operation auditable.</p>
+</div>
+
+</section>
+
+<!-- ===================== CHINESE ===================== -->
+<section id="lang-zh" class="hidden">
+
+<h2>什么是分拨中心（Gateway）？</h2>
+<p>Gateway（GW，分拨中心）负责汇集并分拣来自全国各网点及其他分拨中心的包裹——每件包裹在送达目的地之前，必须至少经过一个分拨中心。目前全网共有 <b>11 个 GW 和 6 个 HUB</b>，其中 SPK（北榄府）为总部直属分拨中心。</p>
+
+<h2>核心作业流程——三个阶段</h2>
+
+<h3>一、进港（Inbound）</h3>
+<div class="flow">核对任务单（司机姓名／车牌／三道封条）→ 排队登记，放行车辆进入装卸口 → 扫描开柜 → 将传送带架上车厢 → 所有包裹经过 DWS 设备（自动称重、测量、扫描，<b>共 22 台同时运行</b>）→ 按目的区域自动分拣</div>
+<div class="card">
+<p><b>传送带入口检查点：</b>三边之和超过 100 厘米或重量超过 50 公斤的包裹属于<b>超规件（Oversize）</b>，直接转入人工分拣组；VIP 品牌（Oppo、Vivo 等）禁止上机；面单不得朝下，包裹间距须保持 10 厘米以上。</p>
+</div>
+
+<h3>二、自动装包（Auto Packing／“装包区”）</h3>
+<p>来自下级网点的袋装包裹拆袋后，逐件送上传送带，按目的省份重新分拣。装包区共设<b>四个环线</b>（A／B／C／D，分别配备 24／24／24／36 台设备），仅接收重量 ≤3 公斤、三边之和 ≤90 厘米的包裹；三边之和超过 180 厘米的包裹不得装袋。</p>
+<div class="card">
+<p><b>所有特殊情况均有明确的处理路径：</b>圆形或易滚动的包裹进入 <b>Flip Tray</b>（翻盘分拣线）；过轻的包裹集中装袋后转交人工组；面单无法识别的包裹通过 <b>Reverse</b> 功能在传送带上循环，由员工人工辨认面单并拨入正确通道；若仍无法识别，则送至线尾处理区。</p>
+</div>
+
+<h3>三、出港（Outbound）</h3>
+<div class="flow">主传送带按省份分出支线，专人将包裹拉入各自负责的通道 → 装车前每件包裹须经 PDA 扫描 → 装车规范：重物在下；易碎品、VVIP 件及水果置于车尾并分区摆放 → 发车</div>
+<div class="card">
+<p>该分拣环节<b>特意采用人工操作</b>：此前曾试用机器，但因瞬时件量过大、包裹掉落，SLA 无法达标，故改回人工。装车前的 PDA 扫描同时是<b>责任移交的凭证</b>——此后包裹若丢失，责任不再属于本仓。</p>
+</div>
+
+<h2>支持系统</h2>
+
+<h3>JMS + PDA</h3>
+<p>每个节点的扫描都会生成带网点标识的时间戳；包裹一旦丢失或破损，可立即追溯到责任方。</p>
+
+<h3>质控部门（QC）</h3>
+<p>下设五个单元——呼叫中心／CCTV／数据／包装／仓储——管控五项 KPI：</p>
+<div class="kpi">
+  <div><b>≥ 99.2%</b><span>进出港及时率</span></div>
+  <div><b>&lt; 800 件/天</b><span>错分拣</span></div>
+  <div><b>&lt; 0.4%</b><span>落扫</span></div>
+  <div><b>&lt; 1%</b><span>清场</span></div>
+  <div><b>持续监控</b><span>中转超时</span></div>
+</div>
+<p>破损包裹按重新包装流程处理，并进行责任倒查，认定过错方。</p>
+
+<h3>呼叫中心 1470</h3>
+<p>所有来电先接入总部 → 查询包裹轨迹 → 将电话转接至包裹当前所在节点；若该节点坐席占线，则由总部呼叫中心受理，并通过后台系统转交跟进。分拨中心仅负责三类工单，且只能联系大区层级——仅 1470／总部可联系任何层级。<b>无面单包裹：</b>入库保存 14 天；登记滞留 5 天后可申请理赔；理赔须自寄件之日起 30 天内提出。</p>
+
+<h2>管理启示</h2>
+<div class="card">
+<p>自动化并非处处适用——在人工更高效的环节（如出港）应果断用人。每一次扫描都是责任凭证，而不仅是轨迹记录。好的系统让每一种特殊情况都有出路，不让任何包裹处于无人负责的状态。清晰的职责边界是有意为之的制度设计，使运营可审计、可追责。</p>
+</div>
+
+</section>
+
+<footer>
+  Source: Daily learning logs, 4–11 June 2026 (revised edition) · SPK Gateway, J&T Express ·
+  资料来源：2026 年 6 月 4–11 日每日学习记录（修订版）· 极兔速递 SPK 分拨中心
+</footer>
+
+</div>
+
+<script>
+function setLang(l){
+  document.getElementById('lang-en').classList.toggle('hidden', l!=='en');
+  document.getElementById('lang-zh').classList.toggle('hidden', l!=='zh');
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.getElementById('btn-zh').classList.toggle('active', l==='zh');
+  document.documentElement.lang = (l==='en') ? 'en' : 'zh-CN';
+}
+</script>
+</body>
+</html>
