@@ -28,7 +28,7 @@
   .kpi{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:14px 0;}
   .kpi div{background:#fff; border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center;}
   .kpi b{display:block; color:var(--red); font-size:1.05rem;}
-  .kpi span{font-size:.85rem; color:var(--grey);}
+  .kpi span{display:block; font-size:.85rem; color:var(--grey); margin-bottom:4px;}
   footer{margin-top:48px; padding-top:16px; border-top:1px solid var(--border); color:var(--grey); font-size:.85rem;}
   .hidden{display:none;}
   @media print{.lang-switch{display:none;} body{background:#fff;}}
@@ -56,9 +56,9 @@
 <h2>Core Workflow — Three Stages</h2>
 
 <h3>1. Inbound</h3>
-<div class="flow">Verify the work-assignment sheet (driver name / license plate / three security straps) → register in the queue and release the truck into a loading bay → scan to open the container → load the conveyor onto the truck → every parcel passes through a DWS machine (automated dimension–weight–scanning; <b>22 units operating simultaneously</b>) → automatic sorting by destination zone</div>
+<div class="flow">Verify the work-assignment sheet (driver name / license plate / three security straps) → register in the queue and release the truck into a loading bay → scan to open the container → extend the conveyor into the truck for unloading → every parcel passes through a DWS machine (automated dimensioning, weighing, and scanning; <b>22 units operating simultaneously</b>) → automatic sorting by destination zone</div>
 <div class="card">
-<p><b>Checkpoint at the conveyor entrance:</b> parcels whose three dimensions total more than 100 cm, or that weigh more than 50 kg, are classified as <b>oversize</b> and diverted to the Manual Team. VIP brands (Oppo, Vivo, etc.) must not enter the machines. Labels must face up, and parcels must be spaced at least 10 cm apart.</p>
+<p><b>Checkpoint at the conveyor entrance:</b> parcels whose combined dimensions exceed 100 cm, or that weigh more than 50 kg, are classified as <b>oversize</b> and diverted to the Manual Team. VIP brands (Oppo, Vivo, etc.) must not be processed by the automated machines. Labels must face up, and parcels must be spaced at least 10 cm apart.</p>
 </div>
 
 <h3>2. Auto Packing (“Sack House”)</h3>
@@ -81,11 +81,11 @@
 <h3>Quality Control (QC)</h3>
 <p>Five units — Call Center / CCTV / Data / Packing / Store — oversee five KPIs:</p>
 <div class="kpi">
-  <div><b>≥ 99.2%</b><span>On-time inbound / outbound</span></div>
-  <div><b>&lt; 800 pcs/day</b><span>Mis-sorted parcels</span></div>
-  <div><b>&lt; 0.4%</b><span>Missed scans</span></div>
-  <div><b>&lt; 1%</b><span>Warehouse clearance</span></div>
-  <div><b>Monitored</b><span>Transit delays</span></div>
+  <div><span>On-time inbound / outbound</span><b>≥ 99.2%</b></div>
+  <div><span>Mis-sorted parcels</span><b>&lt; 800 pcs/day</b></div>
+  <div><span>Missed scans</span><b>&lt; 0.4%</b></div>
+  <div><span>Warehouse clearance</span><b>&lt; 1%</b></div>
+  <div><span>Transit delays</span><b>Monitored</b></div>
 </div>
 <p>Damaged parcels follow a repacking process together with a traceback investigation to determine which party is at fault.</p>
 
@@ -125,13 +125,13 @@
 <h2>核心作业流程——三个阶段</h2>
 
 <h3>一、进港（Inbound）</h3>
-<div class="flow">核对任务单（司机姓名／车牌／三道封条）→ 排队登记，放行车辆进入装卸口 → 扫描开柜 → 将传送带架上车厢 → 所有包裹经过 DWS 设备（自动称重、测量、扫描，<b>共 22 台同时运行</b>）→ 按目的区域自动分拣</div>
+<div class="flow">核对任务单（司机姓名／车牌／三道封条）→ 排队登记，放行车辆进入装卸口 → 扫描开柜 → 将传送带延伸入车厢进行卸货 → 所有包裹经过 DWS 设备（自动体积测量、称重、扫码，<b>共 22 台同时运行</b>）→ 按目的区域自动分拣</div>
 <div class="card">
-<p><b>传送带入口检查点：</b>三边之和超过 100 厘米或重量超过 50 公斤的包裹属于<b>超规件（Oversize）</b>，直接转入人工分拣组；VIP 品牌（Oppo、Vivo 等）禁止上机；面单不得朝下，包裹间距须保持 10 厘米以上。</p>
+<p><b>传送带入口检查点：</b>长宽高之和超过 100 厘米或重量超过 50 公斤的包裹属于<b>超规件（Oversize）</b>，直接转入人工分拣组；VIP 品牌（Oppo、Vivo 等）禁止经由自动分拣设备处理；面单必须朝上，包裹间距须保持 10 厘米以上。</p>
 </div>
 
 <h3>二、自动装包（Auto Packing／“装包区”）</h3>
-<p>来自下级网点的袋装包裹拆袋后，逐件送上传送带，按目的省份重新分拣。装包区共设<b>四个环线</b>（A／B／C／D，分别配备 24／24／24／36 台设备），仅接收重量 ≤3 公斤、三边之和 ≤90 厘米的包裹；三边之和超过 180 厘米的包裹不得装袋。</p>
+<p>来自下级网点的袋装包裹拆袋后，逐件送上传送带，按目的省份重新分拣。装包区共设<b>四个环线</b>（A／B／C／D，分别配备 24／24／24／36 台设备），仅接收重量 ≤3 公斤、长宽高之和 ≤90 厘米的包裹；长宽高之和超过 180 厘米的包裹不得装袋。</p>
 <div class="card">
 <p><b>所有特殊情况均有明确的处理路径：</b>圆形或易滚动的包裹进入 <b>Flip Tray</b>（翻盘分拣线）；过轻的包裹集中装袋后转交人工组；面单无法识别的包裹通过 <b>Reverse</b> 功能在传送带上循环，由员工人工辨认面单并拨入正确通道；若仍无法识别，则送至线尾处理区。</p>
 </div>
@@ -150,11 +150,11 @@
 <h3>质控部门（QC）</h3>
 <p>下设五个单元——呼叫中心／CCTV／数据／包装／仓储——管控五项 KPI：</p>
 <div class="kpi">
-  <div><b>≥ 99.2%</b><span>进出港及时率</span></div>
-  <div><b>&lt; 800 件/天</b><span>错分拣</span></div>
-  <div><b>&lt; 0.4%</b><span>落扫</span></div>
-  <div><b>&lt; 1%</b><span>清场</span></div>
-  <div><b>持续监控</b><span>中转超时</span></div>
+  <div><span>进出港及时率</span><b>≥ 99.2%</b></div>
+  <div><span>错分拣</span><b>&lt; 800 件/天</b></div>
+  <div><span>落扫</span><b>&lt; 0.4%</b></div>
+  <div><span>清场</span><b>&lt; 1%</b></div>
+  <div><span>中转超时</span><b>持续监控</b></div>
 </div>
 <p>破损包裹按重新包装流程处理，并进行责任倒查，认定过错方。</p>
 
