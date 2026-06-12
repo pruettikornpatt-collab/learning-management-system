@@ -27,7 +27,7 @@ A: [AI will answer based on your learning logs]
 
 ## Sample Questions You Can Ask
 
-- "What did I learn about the Zip Tray system?"
+- "What did I learn about the Flip Tray system?"
 - "How does the reverse conveyor work?"
 - "What are the three stages of warehouse processing?"
 - "What confused me about the Auto Packing stage?"

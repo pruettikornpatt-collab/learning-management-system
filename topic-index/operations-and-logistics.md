@@ -23,7 +23,7 @@ Understanding the core operations of J&T Express, focusing on warehouse processe
 ### **Sorting & Routing**
 - [x] Destination-based sorting - *Learned June 4*
 - [x] Reverse conveyor for special items - *Learned June 4*
-- [x] Zip Tray system for cylindrical items - *Learned June 4*
+- [x] Flip Tray system for cylindrical items - *Learned June 4 (แก้ไข 12 มิ.ย.: ชื่อที่ถูกคือ Flip Tray)*
 - [ ] Route optimization
 - [ ] Network distribution
 - [ ] Last-mile delivery

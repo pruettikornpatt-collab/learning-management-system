@@ -47,7 +47,7 @@ The warehouse operates through three main functions:
 - **Process:** Placed in larger bags until sufficient weight
 - **Transfer:** To manual sorting team
 
-### **Zip Tray System** 🛒
+### **Flip Tray System** 🛒
 - **Problem:** Round/cylindrical parcels may roll
 - **Solution:** Specialized conveyor for rolling items
 - **Benefit:** Reduces operational disruptions
@@ -96,7 +96,7 @@ The warehouse operates through three main functions:
 - [ ] Conveyor system automation - how does sorting happen?
 - [ ] Capacity of 22 DWS slots - parcels per hour?
 - [ ] Reverse conveyor logic - decision tree?
-- [ ] Zip Tray system - mechanical design?
+- [ ] Flip Tray system - mechanical design?
 
 ---
 
