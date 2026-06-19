@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J&T Express — SPK Gateway Report</title>
+<style>
+  :root{
+    --red:#d71920; --dark:#1a1a1a; --grey:#555; --light:#f7f7f8; --border:#e5e5e8;
+    --green:#16a34a; --amber:#d97706;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Segoe UI","Noto Sans Thai","PingFang SC","Microsoft YaHei",Helvetica,Arial,sans-serif;color:var(--dark);background:var(--light);line-height:1.8;}
+  .wrap{max-width:860px;margin:0 auto;padding:48px 28px 80px;}
+  header{border-bottom:4px solid var(--red);padding-bottom:20px;margin-bottom:28px;}
+  header h1{font-size:1.65rem;letter-spacing:.2px;}
+  header p{color:var(--grey);margin-top:6px;font-size:.93rem;}
+  .lang-switch{display:flex;gap:8px;margin:22px 0 34px;}
+  .lang-switch button{padding:9px 24px;border:1px solid var(--border);background:#fff;border-radius:24px;font-size:.93rem;cursor:pointer;transition:.15s;}
+  .lang-switch button.active{background:var(--red);color:#fff;border-color:var(--red);font-weight:600;}
+  h2{font-size:1.2rem;margin:38px 0 12px;padding-left:12px;border-left:4px solid var(--red);scroll-margin-top:20px;}
+  h3{font-size:1rem;margin:20px 0 8px;color:var(--red);}
+  p{margin:10px 0;}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem;background:#fff;border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+  th{background:var(--red);color:#fff;padding:9px 14px;text-align:left;font-weight:600;}
+  td{padding:9px 14px;border-bottom:1px solid var(--border);}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:#fafafa;}
+  .card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin:14px 0;}
+  .card.warn{border-left:4px solid var(--amber);}
+  .card.ok{border-left:4px solid var(--green);}
+  .flow{background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:8px;padding:14px 18px;margin:12px 0;font-size:.93rem;font-family:monospace;white-space:pre-wrap;line-height:1.7;}
+  .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:14px 0;}
+  .kpi div{background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;}
+  .kpi b{display:block;color:var(--red);font-size:1.05rem;margin-top:4px;}
+  .kpi span{display:block;font-size:.82rem;color:var(--grey);}
+  footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);color:var(--grey);font-size:.85rem;}
+  .hidden{display:none;}
+  @media(max-width:600px){.kpi{grid-template-columns:repeat(2,1fr);}header h1{font-size:1.25rem;}}
+  @media print{.lang-switch{display:none;}body{background:#fff;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>J&T Express — SPK Gateway <span style="color:var(--red)">·</span> Operations Report</h1>
+  <p>Management Trainee Report · SPK Gateway (Samut Prakan) · มิถุนายน 2569 / June 2026 / 2026年6月</p>
+</header>
+
+<div class="lang-switch">
+  <button id="btn-th" class="active" onclick="setLang('th')">ภาษาไทย</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+  <button id="btn-zh" onclick="setLang('zh')">中文</button>
+</div>
+
+<!-- ==================== THAI ==================== -->
+<section id="lang-th">
+
+<h2>1. โครงสร้างเครือข่ายการกระจายสินค้า</h2>
+<p>J&T แบ่งโครงสร้างออกเป็น 3 ระดับ ปัจจุบันมี <b>11 Gateway และ 6 HUB</b> ทั่วประเทศ</p>
+<table>
+  <tr><th>ระดับ</th><th>บทบาท</th><th>ส่งได้ถึง</th></tr>
+  <tr><td><b>GW (Gateway)</b></td><td>Sorting center ใหญ่สุด ความพร้อมสูงสุด</td><td>GW, HUB, สาขา</td></tr>
+  <tr><td><b>HUB</b></td><td>ขนาดรอง รับ load จาก GW</td><td>GW, HUB, สาขา (เฉพาะต่างจังหวัด)</td></tr>
+  <tr><td><b>สาขา</b></td><td>จุด pick-up / delivery ใกล้ลูกค้า</td><td>ลูกค้าปลายทาง</td></tr>
+</table>
+<div class="card warn">
+  <p><b>กฎสำคัญ:</b> รถ GW→GW ตีกลับไม่ได้เลย · สาขาที่มีพัสดุมีปัญหา <b>&gt;30%</b> สามารถตีกลับทั้งคัน โดยสาขารับผิดชอบ repack เอง</p>
+</div>
+
+<h2>2. กระบวนการหลัก</h2>
+
+<h3>ขาเข้า (Inbound)</h3>
+<p>พัสดุทุกชิ้นผ่านเครื่อง <b>DWS</b> (ชั่ง-วัด-สแกน) ซึ่ง SPK มี 22 เครื่องทำงานพร้อมกัน ระบบคัดแยกเขตอัตโนมัติ พัสดุที่เครื่องอ่านไม่ได้จะวนบน Reverse Conveyor รอพนักงานปัดด้วยมือ</p>
+
+<h3>AutoPacking / บ้านซอง</h3>
+<p>พัสดุ ≤3 kg จากสาขาถูกแกะกระสอบและคัดแยกอัตโนมัติตามปลายทาง วง D (ใหญ่สุด) มี 36 เครื่อง <b>KPI: 1,600 ชิ้น/ชั่วโมง</b> พัสดุทรงกลมหรือซองบางไปสาย Fliptray แทน (Fliptray 2 รับ 4 zones)</p>
+
+<h3>ขาออก (Outbound)</h3>
+<p>ใช้คนคัดแยกตาม line ปลายทางและสแกน PDA ทุกชิ้นก่อนขึ้นรถ เลือกใช้คนแทนเครื่องเพราะ volume พีคเกินกว่าเครื่องจะรับได้</p>
+
+<h2>3. ระบบติดตามและรับผิดชอบ (JMS + PDA)</h2>
+<p>ทุก handoff มี PDA scan สร้าง timestamp ในระบบ JMS ทำให้ระบุได้ทันทีว่าพัสดุที่เสียหายหรือสูญหายอยู่ในความรับผิดชอบของฝ่ายใด</p>
+<div class="flow">สาขาต้นทาง → GW ต้นทาง → GW ปลายทาง → สาขาปลายทาง → เซ็นรับ
+(ทุกจุดมีสแกนรับ-ส่ง เป็น timestamp ยืนยันความรับผิดชอบ)</div>
+
+<h2>4. แผนก QC และ KPI</h2>
+<p>QC แบ่งเป็น 5 หน่วย (Call Center · CCTV · Data · Packing · Store) ครอบคลุม 3 มิติ: Real-time, ย้อนหลัง, และ Customer-facing</p>
+<div class="kpi">
+  <div><span>ขาเข้า/ขาออกทันเวลา</span><b>≥ 99.2%</b></div>
+  <div><span>คัดแยกผิด</span><b>&lt; 800 ชิ้น/วัน</b></div>
+  <div><span>หลุดสแกน</span><b>&lt; 0.4%</b></div>
+  <div><span>เคลียคลัง</span><b>&lt; 1%</b></div>
+</div>
+
+<h2>5. Call Center 1470</h2>
+<p>ระบบ AI ส่งสายตรงไปยังสาขาที่พัสดุอยู่ในสถานะล่าสุด ทุกสายผ่าน HQ ก่อน ถ้าสาขาคู่สายเต็ม HQ รับเรื่องและส่งต่อในระบบหลังบ้าน Gateway ติดต่อสาขาได้โดยตรง</p>
+<p><b>SLA:</b> พัสดุ BKK ตามภายใน 48 ชม. · เร่งนำจ่ายได้หลังตกค้างเกิน 36 ชม.</p>
+
+<h2>6. นโยบาย VIP</h2>
+<div class="card warn">
+  <p>พัสดุ VIP <b>ห้ามตีกลับเองทุกกรณี</b> ต้องรอสาขาปลายทาง confirm ก่อนเสมอ</p>
+</div>
+<table>
+  <tr><th>เลขขึ้นต้น</th><th>Platform</th><th>เลขขึ้นต้น</th><th>Platform</th></tr>
+  <tr><td>65</td><td>Shopee</td><td>86</td><td>Watsons</td></tr>
+  <tr><td>91</td><td>Temu</td><td>798</td><td>TikTok</td></tr>
+  <tr><td>89</td><td>Shein</td><td>73</td><td>ต่างประเทศ</td></tr>
+  <tr><td>52</td><td>Lazada</td><td></td><td></td></tr>
+</table>
+
+<h2>7. สิ่งของต้องห้ามฝากส่ง</h2>
+<p>บังคับใช้ตั้งแต่ 14 มิ.ย. 2568 · ค่าปรับคิด<b>ต่อ 1 ใบนำส่ง (AWB)</b></p>
+<table>
+  <tr><th>ระดับ</th><th>ตัวอย่าง</th><th>ค่าปรับ/AWB</th></tr>
+  <tr><td><b style="color:var(--red)">1</b></td><td>อาวุธ, ยาเสพติด, กัมมันตรังสี</td><td><b>50,000 บาท</b></td></tr>
+  <tr><td><b style="color:var(--red)">2</b></td><td>สารเคมี/ทางการแพทย์, สัตว์ป่าคุ้มครอง</td><td><b>20,000 บาท</b></td></tr>
+  <tr><td><b style="color:var(--amber)">3</b></td><td>วัตถุไวไฟ, แบตเตอรี่บางประเภท, ถังแรงดัน</td><td><b>10,000 บาท</b></td></tr>
+  <tr><td><b>4</b></td><td>เอกสาร, อาหารสด, ของมีค่า, ธนบัตร, สัตว์</td><td><b>500–2,000 บาท</b></td></tr>
+</table>
+
+<h2>8. SOP พัสดุไม่มีเลขนำส่ง (No AWB)</h2>
+<p><b>3 สาเหตุหลัก:</b> ใบนำส่งชำรุด · ไม่มีใบนำส่งตั้งแต่ต้น · พัสดุหลุดออกจากบรรจุภัณฑ์</p>
+<p>ก่อนลงทะเบียนต้องค้นหา AWB ก่อนเสมอ (มี 8 วิธี รวมถึง <b>AI จับคู่รูปภาพ</b> 200 รูป/ครั้ง) — ถ้าพบเลข ส่งต่อได้เลยโดยไม่ต้องลงทะเบียน</p>
+
+<h3>บทลงโทษ</h3>
+<table>
+  <tr><th>รหัส</th><th>กรณี</th><th>ค่าปรับ</th></tr>
+  <tr><td>DP09001</td><td>ลงทะเบียนไม่ได้มาตรฐาน</td><td>10 ครั้ง/เดือน</td></tr>
+  <tr><td>DP09002</td><td>รูปไม่ชัด/ข้อมูลไม่ครบ</td><td>30 ครั้ง/เดือน</td></tr>
+  <tr><td>DP09003</td><td>พัสดุในคลังไม่ได้ลงทะเบียน</td><td>100 ครั้ง/เดือน</td></tr>
+  <tr><td><b>DP09004</b></td><td>สาขาต้นทางไม่ยืนยันใน 24 ชม.</td><td><b style="color:var(--red)">500 ครั้ง/เดือน</b><br><small>(HQ รายงานอัตโนมัติตั้งแต่ มี.ค. 68)</small></td></tr>
+</table>
+
+<h2>9. ข้อสังเกตเชิงบริหาร</h2>
+<div class="card">
+  <p><b>Accountability by Design</b> — ทุกระบบของ J&T ถูกออกแบบมาให้ระบุความรับผิดชอบได้ทุกจุด (PDA scan ทุก handoff, ใบสั่งงานเป็นหลักฐาน, รหัสปรับ DP) แทนที่จะพึ่ง goodwill</p>
+</div>
+<div class="card">
+  <p><b>Cost of Poor Quality ที่มองเห็นได้</b> — ทั้ง workflow พัสดุไม่มี AWB เป็นต้นทุนที่เกิดจาก quality ที่ปลายทางต้นทาง ถ้า upstream labeling ถูกต้องตั้งแต่แรก ทีม Store ทั้งหมดไม่จำเป็นต้องมี</p>
+</div>
+<div class="card">
+  <p><b>Escalation Structure ที่ชัดเจน</b> — ปัญหาเล็กแก้ที่หน้างาน / กลางให้สาขาต้นทาง confirm / ใหญ่รอ HQ อนุมัติ / VIP ให้สาขาปลายทางตัดสิน แต่ละระดับมีหน้าที่ไม่ซ้อนกัน ป้องกันการใช้ดุลยพินิจผิดระดับ</p>
+</div>
+
+</section>
+
+<!-- ==================== ENGLISH ==================== -->
+<section id="lang-en" class="hidden">
+
+<h2>1. Distribution Network Structure</h2>
+<p>J&T operates a three-tier network. Currently <b>11 Gateways and 6 HUBs</b> nationwide.</p>
+<table>
+  <tr><th>Tier</th><th>Role</th><th>Can dispatch to</th></tr>
+  <tr><td><b>GW (Gateway)</b></td><td>Largest sorting center, highest capacity</td><td>GW, HUB, Branches</td></tr>
+  <tr><td><b>HUB</b></td><td>Mid-tier, offloads GW volume</td><td>GW, HUB, Branches (upcountry only)</td></tr>
+  <tr><td><b>Branch</b></td><td>Customer-facing pick-up / delivery point</td><td>End customers</td></tr>
+</table>
+<div class="card warn">
+  <p><b>Key rules:</b> GW→GW trucks cannot be turned back under any circumstance · If a branch truck contains &gt;30% problematic parcels, the entire truck may be returned — the branch is responsible for repacking.</p>
+</div>
+
+<h2>2. Core Operations</h2>
+
+<h3>Inbound</h3>
+<p>Every parcel passes through a <b>DWS machine</b> (auto dimensioning, weighing, scanning). SPK runs <b>22 machines simultaneously</b>, sorting parcels by destination zone automatically. Unreadable labels circulate on a Reverse Conveyor until staff redirect them manually.</p>
+
+<h3>AutoPacking / Sack House</h3>
+<p>Parcels ≤3 kg from branches are sorted automatically by destination. Ring D (the largest) has 36 machines. <b>KPI: 1,600 pcs/hr.</b> Spherical or thin items go to the Fliptray line instead (Fliptray 2 handles 4 zones).</p>
+
+<h3>Outbound</h3>
+<p>Staff manually sort parcels by destination line and scan each one via PDA before loading. Manual operation was deliberately chosen over automation because peak volume exceeds machine capacity.</p>
+
+<h2>3. Tracking & Accountability (JMS + PDA)</h2>
+<p>Every handoff is PDA-scanned, creating a timestamped record in JMS. If a parcel is lost or damaged, the responsible party is identifiable immediately.</p>
+<div class="flow">Origin branch → Origin GW → Destination GW → Destination branch → Signature
+(Every node has inbound + outbound scans as accountability proof)</div>
+
+<h2>4. Quality Control & KPIs</h2>
+<p>QC comprises 5 units (Call Center · CCTV · Data · Packing · Store), covering three dimensions: real-time, retrospective, and customer-facing.</p>
+<div class="kpi">
+  <div><span>On-time inbound/outbound</span><b>≥ 99.2%</b></div>
+  <div><span>Mis-sorted parcels</span><b>&lt; 800 pcs/day</b></div>
+  <div><span>Missed scans</span><b>&lt; 0.4%</b></div>
+  <div><span>Warehouse clearance</span><b>&lt; 1%</b></div>
+</div>
+
+<h2>5. Call Center 1470</h2>
+<p>The AI system routes calls directly to the location holding the parcel at its latest tracked status. All calls enter through HQ first; if the destination unit's lines are full, HQ absorbs the case and forwards it through the back-end system. The Gateway may contact branches directly.</p>
+<p><b>SLA:</b> BKK parcels followed up within 48 hrs · Expedited delivery requested after 36 hrs of stalling.</p>
+
+<h2>6. VIP Policy</h2>
+<div class="card warn">
+  <p>VIP parcels must <b>never be returned without explicit confirmation from the destination branch.</b></p>
+</div>
+<table>
+  <tr><th>Prefix</th><th>Platform</th><th>Prefix</th><th>Platform</th></tr>
+  <tr><td>65</td><td>Shopee</td><td>86</td><td>Watsons</td></tr>
+  <tr><td>91</td><td>Temu</td><td>798</td><td>TikTok</td></tr>
+  <tr><td>89</td><td>Shein</td><td>73</td><td>International</td></tr>
+  <tr><td>52</td><td>Lazada</td><td></td><td></td></tr>
+</table>
+
+<h2>7. Prohibited Items</h2>
+<p>Effective 14 Jun 2025 · Fines calculated <b>per AWB (per shipment)</b></p>
+<table>
+  <tr><th>Level</th><th>Examples</th><th>Fine / AWB</th></tr>
+  <tr><td><b style="color:var(--red)">1</b></td><td>Weapons, narcotics, radioactive materials</td><td><b>50,000 THB</b></td></tr>
+  <tr><td><b style="color:var(--red)">2</b></td><td>Chemicals/medical substances, protected wildlife</td><td><b>20,000 THB</b></td></tr>
+  <tr><td><b style="color:var(--amber)">3</b></td><td>Flammables, certain batteries, pressurized tanks</td><td><b>10,000 THB</b></td></tr>
+  <tr><td><b>4</b></td><td>Documents, fresh food, valuables, banknotes, animals</td><td><b>500–2,000 THB</b></td></tr>
+</table>
+
+<h2>8. No-AWB Parcel SOP</h2>
+<p><b>3 main causes:</b> Damaged label · Label absent from origin · Parcel separated from packaging</p>
+<p>Before registering a no-AWB parcel, staff must search for the tracking number first using one of 8 available methods, including <b>AI image matching</b> (up to 200 photos per query). If the number is found, the parcel is forwarded immediately with no registration required.</p>
+
+<h3>Penalty Schedule</h3>
+<table>
+  <tr><th>Code</th><th>Violation</th><th>Penalty</th></tr>
+  <tr><td>DP09001</td><td>Substandard registration</td><td>10 times/month</td></tr>
+  <tr><td>DP09002</td><td>Unclear/incomplete photos</td><td>30 times/month</td></tr>
+  <tr><td>DP09003</td><td>No-AWB parcel in warehouse, unregistered</td><td>100 times/month</td></tr>
+  <tr><td><b>DP09004</b></td><td>Origin branch fails to confirm within 24 hrs</td><td><b style="color:var(--red)">500 times/month</b><br><small>(HQ auto-reports since Mar 2025)</small></td></tr>
+</table>
+
+<h2>9. Management Observations</h2>
+<div class="card">
+  <p><b>Accountability by Design</b> — Every system J&T has built (PDA scans at every handoff, work orders as evidence, DP penalty codes) creates an auditable trail pinpointing where problems occur, replacing debate with data.</p>
+</div>
+<div class="card">
+  <p><b>Visible Cost of Poor Quality</b> — The entire no-AWB workflow represents the cost of inadequate upstream labeling. If origin branches attached labels correctly from the start, the Store team's entire workload would not exist.</p>
+</div>
+<div class="card">
+  <p><b>Clear Escalation Structure</b> — Small issues resolved on the floor / medium issues require origin-branch confirmation / large issues await HQ approval / VIP decisions belong to the destination branch. No level overlaps, preventing judgment calls at the wrong tier.</p>
+</div>
+
+</section>
+
+<!-- ==================== CHINESE ==================== -->
+<section id="lang-zh" class="hidden">
+
+<h2>1. 配送网络结构</h2>
+<p>极兔速递采用三级配送体系，目前全国共有 <b>11 个分拨中心（GW）和 6 个中转中心（HUB）</b>。</p>
+<table>
+  <tr><th>层级</th><th>职能</th><th>可发往</th></tr>
+  <tr><td><b>GW（分拨中心）</b></td><td>最大分拣中心，设施最完备</td><td>GW、HUB、网点</td></tr>
+  <tr><td><b>HUB（中转中心）</b></td><td>次级节点，分担 GW 压力</td><td>GW、HUB，省外可发至网点</td></tr>
+  <tr><td><b>网点（Branch）</b></td><td>贴近客户的收派件窗口</td><td>终端客户</td></tr>
+</table>
+<div class="card warn">
+  <p><b>关键规定：</b>GW→GW 运输车辆不得拒收退回 · 若网点发来的车辆中问题件超过 <b>30%</b>，可整车退回，由网点自行重新打包。</p>
+</div>
+
+<h2>2. 核心作业流程</h2>
+
+<h3>进港（Inbound）</h3>
+<p>所有包裹须经过 <b>DWS 设备</b>（自动体积测量、称重、扫码），SPK 共配置 <b>22 台同步运行</b>，按目的地自动分拣。面单无法识别的包裹在反向传送带上循环，由人工辨认后归位。</p>
+
+<h3>自动装包 / 装包区</h3>
+<p>来自网点的袋装包裹（≤3 kg）拆袋后按目的地自动分拣。D 环线规模最大，配备 36 台设备。<b>KPI：1,600 件/小时。</b>圆形或薄型包裹另走 Fliptray 线（Fliptray 2 对应 4 个分区）。</p>
+
+<h3>出港（Outbound）</h3>
+<p>人工按目的地线路分拣，每件包裹装车前须经 PDA 扫描。此环节有意采用人工——经测试，自动化设备无法应对高峰时段的瞬时件量，曾导致包裹掉落及 SLA 不达标。</p>
+
+<h2>3. 追踪与责任体系（JMS + PDA）</h2>
+<p>每次交接均通过 PDA 扫描，在 JMS 系统中生成带节点标识的时间戳。一旦出现丢失或破损，可立即追溯到责任方。</p>
+<div class="flow">始发网点 → 始发分拨中心 → 目的分拨中心 → 目的网点 → 签收
+（每个节点均有进出港扫描记录，作为责任凭证）</div>
+
+<h2>4. 质控部门（QC）与 KPI</h2>
+<p>QC 下设 5 个单元（呼叫中心 · CCTV · 数据 · 包装 · 仓储），覆盖实时监控、历史追溯、客户服务三个维度。</p>
+<div class="kpi">
+  <div><span>进出港及时率</span><b>≥ 99.2%</b></div>
+  <div><span>错分拣</span><b>&lt; 800 件/天</b></div>
+  <div><span>落扫率</span><b>&lt; 0.4%</b></div>
+  <div><span>清场达标率</span><b>&lt; 1%</b></div>
+</div>
+
+<h2>5. 客服热线 1470</h2>
+<p>AI 系统根据包裹最新轨迹状态，将来电直接转接至对应节点。所有来电先经过总部，若目的节点坐席占线，由总部受理并通过后台转交跟进。分拨中心可直接联系网点，无需经过大区。</p>
+<p><b>SLA：</b>曼谷件须在 48 小时内处理完毕 · 滞留超 36 小时后可提交加急派送申请。</p>
+
+<h2>6. VIP 件政策</h2>
+<div class="card warn">
+  <p>VIP 件在任何情况下<b>均不得自行退件</b>，必须等待目的网点确认后方可操作。</p>
+</div>
+<table>
+  <tr><th>单号前缀</th><th>平台</th><th>单号前缀</th><th>平台</th></tr>
+  <tr><td>65</td><td>Shopee</td><td>86</td><td>Watsons</td></tr>
+  <tr><td>91</td><td>Temu</td><td>798</td><td>TikTok</td></tr>
+  <tr><td>89</td><td>Shein</td><td>73</td><td>国际件</td></tr>
+  <tr><td>52</td><td>Lazada</td><td></td><td></td></tr>
+</table>
+
+<h2>7. 禁止寄递物品</h2>
+<p>自 2025 年 6 月 14 日起执行 · 罚款以<b>每票（AWB）</b>为单位计算</p>
+<table>
+  <tr><th>等级</th><th>示例</th><th>罚款/票</th></tr>
+  <tr><td><b style="color:var(--red)">1</b></td><td>武器、毒品、放射性物质</td><td><b>50,000 泰铢</b></td></tr>
+  <tr><td><b style="color:var(--red)">2</b></td><td>化学/医疗品、受保护野生动物</td><td><b>20,000 泰铢</b></td></tr>
+  <tr><td><b style="color:var(--amber)">3</b></td><td>易燃物、部分电池、压力容器</td><td><b>10,000 泰铢</b></td></tr>
+  <tr><td><b>4</b></td><td>文件、生鲜食品、贵重物品、现金、动物</td><td><b>500–2,000 泰铢</b></td></tr>
+</table>
+
+<h2>8. 无面单包裹处理规范（SOP）</h2>
+<p><b>三大成因：</b>面单破损 · 始发时未贴面单 · 包裹从外包装中脱落</p>
+<p>登记前须优先查找运单号，现有 8 种查找方式，包括 <b>AI 图像匹配</b>（每次最多上传 200 张图片）。若找到运单号，可直接发出，无需登记。</p>
+
+<h3>罚款标准</h3>
+<table>
+  <tr><th>代码</th><th>违规情形</th><th>罚款</th></tr>
+  <tr><td>DP09001</td><td>登记信息不达标</td><td>10 次/月</td></tr>
+  <tr><td>DP09002</td><td>照片不清晰/信息不完整</td><td>30 次/月</td></tr>
+  <tr><td>DP09003</td><td>仓内无面单件未登记</td><td>100 次/月</td></tr>
+  <tr><td><b>DP09004</b></td><td>始发网点 24 小时内未确认</td><td><b style="color:var(--red)">500 次/月</b><br><small>（总部自 2025 年 3 月起自动上报）</small></td></tr>
+</table>
+
+<h2>9. 管理层观察</h2>
+<div class="card">
+  <p><b>责任体系内嵌于设计之中</b> — 极兔的每套机制（PDA 全程扫描、工单即证据、DP 罚款代码）均在构建可追溯的责任链，以数据替代争议。</p>
+</div>
+<div class="card">
+  <p><b>质量成本清晰可见</b> — 无面单件的整套处理流程，本质上是上游贴单质量不达标的代价。若始发网点从源头保证面单准确，仓储（Store）团队的工作量将不复存在。</p>
+</div>
+<div class="card">
+  <p><b>升级处理机制层次分明</b> — 小问题现场解决 / 中等问题由始发网点确认 / 大问题等待总部批准 / VIP 件由目的网点决策。各层级职责互不重叠，防止在错误层级行使判断权。</p>
+</div>
+
+</section>
+
+<footer>
+  รายงานการเรียนรู้ · Management Trainee · SPK Gateway, J&T Express · มิถุนายน 2569 / June 2026 / 2026年6月
+</footer>
+</div>
+
+<script>
+function setLang(l){
+  ['th','en','zh'].forEach(function(x){
+    document.getElementById('lang-'+x).classList.toggle('hidden', x!==l);
+    document.getElementById('btn-'+x).classList.toggle('active', x===l);
+  });
+  var map={th:'th',en:'en',zh:'zh-CN'};
+  document.documentElement.lang=map[l];
+}
+</script>
+</body>
+</html>
